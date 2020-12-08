@@ -1,11 +1,12 @@
 from lns import speak, get_audio
+from functools import cache
 import file
 import wakeup
 import pywhatkit
 import wikipedia
 import pomodoro
 import datetime
-from functools import cache
+import pyjokes
 
 
 TERMINATE_WORD = 'goodbye'
@@ -48,6 +49,9 @@ def main():
         elif 'time' in speech:
             time = datetime.datetime.now().strftime('%I:%M %p')
             speak(f'The time is {time}')
+        elif 'joke' in speech:
+            joke = pyjokes.get_joke()
+            speak(joke)
         elif wakeup.greetings(speech):
             wakeup.response(speech)
         else:
