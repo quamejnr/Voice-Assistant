@@ -2,6 +2,7 @@ import os
 import inflect
 from send2trash import send2trash
 from lns import speak, get_audio
+from functools import cache
 
 
 FILE_KEYWORD = 'files'
@@ -20,6 +21,7 @@ def check(path):
             yield filename
 
 
+@cache
 def find(path_1, path_2):
     """ Returns common files in two different paths and gives an option to delete. """
     dir_1 = list(check(path_1))
@@ -61,8 +63,13 @@ def find(path_1, path_2):
     else:
         speak(f"{len(files)} {p.plural_noun('file', len(files))} found\n")
         print(files)
-        speak('Should I delete files Sir?')
-        speech = get_audio()
+        while True:
+            speak('Should I delete files Sir?')
+            speech = get_audio()
+            if speech == '':
+                continue
+            else:
+                break
         if speech.casefold() in ['yes', 'yeah']:
             speak("Deleting files")
             for f in files:
