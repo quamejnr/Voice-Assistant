@@ -15,7 +15,9 @@ FOLDER_LOCATIONS = {
 
 
 def check(path):
+
     """ Returns files in folder path. """
+
     for folder, sub_folders, filenames in os.walk(path):
         for filename in filenames:
             yield filename
@@ -23,15 +25,27 @@ def check(path):
 
 @cache
 def find(path_1, path_2):
-    """ Returns common files in two different paths and gives an option to delete. """
+
+    """
+    Returns common files in two different paths and gives an option to delete.
+
+    """
+
+    # Files in the paths provided are put in a list and sorted.
     dir_1 = list(check(path_1))
     dir_1.sort()
     dir_2 = list(check(path_2))
     dir_2.sort()
+
+    # Files found are appended to this list.
     files = []
+
     p = inflect.engine()
+
+    # A binary search algorithm is implemented to make the process faster.
+    # Files of the path containing less files is taken and each file compared with files
+    # in the the list of the other path.
     if len(dir_1) <= len(dir_2):
-        print(path_1)
         for file in dir_1:
             mx = len(dir_2)
             mn = 0
@@ -45,7 +59,6 @@ def find(path_1, path_2):
                 else:
                     mn = index + 1
     else:
-        print(path_2)
         for file in dir_2:
             mx = len(dir_1)
             mn = 0
@@ -61,9 +74,11 @@ def find(path_1, path_2):
     if len(files) == 0:
         speak("No files found Sir")
     else:
+        # An inflect engine is used to get the plural noun of files if files are more than one.
         speak(f"{len(files)} {p.plural_noun('file', len(files))} found\n")
         print(files)
         while True:
+            # Voice assistant gives the option to delete the files found.
             speak('Should I delete files Sir?')
             speech = get_audio()
             if speech == '':
@@ -81,6 +96,7 @@ def find(path_1, path_2):
 
 
 def common(speech):
+    # Command is split on 'and' and keywords are searched to find the different paths.
     path_1, path_2 = speech.split('and')
     for word in FOLDER_LOCATIONS:
         if word in path_1:

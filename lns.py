@@ -11,10 +11,12 @@ def speak(speech):
 def get_audio():
     r = sr.Recognizer()
     with sr.Microphone() as source:
+        # Voice assistant listens via the microphone.
         audio = r.listen(source)
         said = ''
 
     try:
+        # Speech recognition is then used to understand what was said.
         said = r.recognize_google(audio)
         print(said)
     except Exception as e:

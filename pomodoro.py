@@ -3,6 +3,9 @@ from lns import get_audio, speak
 
 
 def timer(minutes):
+
+    """ Function to implement a timer. """
+
     tim = 0
     while tim != minutes:
         time.sleep(60)
@@ -11,6 +14,12 @@ def timer(minutes):
 
 
 def pomodoro():
+
+    """
+    Function that implements the pomodoro technique in which one focuses
+    for a while with intermittent breaks
+
+    """
 
     answers = ['yes', 'ok', 'sure', 'yh', 'yeah']
 
