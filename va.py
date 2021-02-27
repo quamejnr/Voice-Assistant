@@ -46,7 +46,7 @@ def main():
             except:
                 speak("Sorry I didn't get the name")
 
-        # Goggle searches are initiated when 'Google' command is given.
+        # Google searches are initiated when 'Google' command is given.
         elif 'Google' in speech:
             word = speech.split('Google')[-1]
             if word != '':

@@ -18,7 +18,7 @@ def wake():
         if speech.count(WAKE) > 0:
             # Johnson responds with one of the wake responses chosen randomly
             # and is initialized for other commands when it hears the wake command.
-            speak(f'Hello Sir, {random.choice(WAKE_RESPONSES)}')
+            speak(f'Hello {random.choice(WAKE_RESPONSES)}')
             break
 
 
@@ -26,7 +26,7 @@ def wake():
 GREETINGS = {
     'hello': 'Hello!',
     'hi': 'Hi!',
-    'how are you': "Better than I deserve.",
+    'how are you': "I don't know how I feel, I don't quite have feelings.",
     'who are you': "I am an AI created by Kwame.",
     'your name': 'My name is Johnson.',
     'can you do': 'I can play songs on youtube, make google searches, tell you the time, '
